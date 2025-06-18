@@ -14,7 +14,8 @@
   * [Master - Driver](general/communication/master-driver.md)
   * [Back End - Master](general/communication/back-end-master/README.md)
     * [SPI](general/communication/back-end-master/spi.md)
-    * [UART](general/communication/back-end-master/uart.md)
+    * [UART](general/communication/back-end-master/uart/README.md)
+      * [Specifica comunicazione UART](general/communication/back-end-master/uart/specifica-comunicazione-uart.md)
   * [Back End - Drive](general/communication/back-end-drive.md)
 
 ## Exo-driver\_01
