@@ -25,6 +25,10 @@
   * [Driver-loop](exo-driver_01/diagrams/driver-loop.md)
   * [Driver finite state machine](exo-driver_01/diagrams/driver-finite-state-machine.md)
 
+***
+
+* [Config, startup & reset](config-startup-and-reset.md)
+
 ## Exo-master\_01
 
 * [Master\_01](exo-master_01/master_01.md)
