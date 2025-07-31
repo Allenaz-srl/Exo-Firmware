@@ -17,7 +17,7 @@ I registri sono classificati in base al tipo di dato trasportato, secondo i segu
 
 È anche possibile raggruppare i registri in base alla loro funzione logica come segue:
 
-<table><thead><tr><th width="211">Gruppo</th><th>From->To</th><th width="387">Descrizione</th></tr></thead><tbody><tr><td>Parametri operativi</td><td>HMI->Master</td><td>-10 Working mode<br>-11 Test cycle<br>-50-54 Posizioni angolari da raggiungere<br>-55-59 Posizioni cartesiane da raggiungere<br>-85-89 Velocità massima del singolo movimento</td></tr><tr><td>Informazioni all'avvio</td><td>Master->HMI</td><td>-1 Numero di serie<br>-2-3 Numero di assi<br>-7-8 Versione del software</td></tr><tr><td>Informazioni durante il funzionamento</td><td>Master->HMI</td><td>-100 Percentuale di carica della batteria</td></tr><tr><td>Settaggi all'avvio</td><td>Master->HMI</td><td>-160-164 Pos min per ogni asse<br>-170-174 Pos max per ogni asse<br>Per ogni sensore di posizione:<br>-140-144 Zero<br>-130-134 Risoluzione<br>-200-204 Corsa<br>-400-404 Direzione</td></tr><tr><td>Settaggi da interfaccia</td><td>HMI->Master</td><td><p>-70-74 Limite di velocità utente<br>-85-89 Limite di velocità avanzato</p><p>-90-93 Regolazioni movimento assistito<br>-101-111 Limiti di posizione (ROM)</p></td></tr></tbody></table>
+<table><thead><tr><th width="211">Gruppo</th><th>From->To</th><th width="387">Descrizione</th></tr></thead><tbody><tr><td>Parametri operativi</td><td>HMI->Master</td><td>-10 Working mode<br>-11 Test cycle<br>-50-54 Posizioni angolari da raggiungere<br>-55-59 e 208-209 Posizioni cartesiane da raggiungere<br>-85-89 Velocità massima del singolo movimento</td></tr><tr><td>Informazioni all'avvio</td><td>Master->HMI</td><td>-1 Numero di serie<br>-2 Numero di assi<br>-7 Versione del software</td></tr><tr><td>Informazioni durante il funzionamento</td><td>Master->HMI</td><td>-100 Percentuale di carica della batteria</td></tr><tr><td>Settaggi all'avvio</td><td>Master->HMI</td><td><p>-160-164 Pos min per ogni asse<br>-170-174 Pos max per ogni asse<br>Per ogni sensore di posizione:<br>-130-134 Risoluzione</p><p>-140-144 Zero<br>-200-204 Corsa<br>-400-404 Direzione</p></td></tr><tr><td>Settaggi da interfaccia</td><td>HMI->Master</td><td><p>-60-64 Limite di velocità avanzato</p><p>-70-74 Limite di velocità utente</p><p>-90-93 Regolazioni movimento assistito<br>-101-111 Limiti di posizione (ROM)</p></td></tr></tbody></table>
 
 
 
@@ -44,78 +44,92 @@ Il ciclo prevede uno start me
 
 
 
-| Registro                                      | Tipo  | Descrizione                       | Direzione    |
-| --------------------------------------------- | ----- | --------------------------------- | ------------ |
-| 55                                            | int   |                                   | HMI → Master |
-| <p>56–>Asse 1<br>57–>Asse 2<br>58–>Asse 3</p> | int   | Posizione cartesiana target (XYZ) | HMI → Master |
-| <p>208–>G3<br>209->G5</p>                     | float |                                   |              |
-| 59                                            | int   |                                   | Master→ HMI  |
+| Registro                       | Tipo  | Descrizione                                                            | Direzione    |
+| ------------------------------ | ----- | ---------------------------------------------------------------------- | ------------ |
+| 55                             | int   | 0 - START MSG; 1 - Go without check; 2 - Go with check; 3 - check only | HMI → Master |
+| <p>56–>X<br>57–>Y<br>58–>Z</p> | int   | Posizione cartesiana target (XYZ)                                      | HMI → Master |
+| <p>208–>G3<br>209->G5</p>      | float |                                                                        |              |
+| 59                             | int   | 0 - no error; 1 - pos not reachable                                    | Master→ HMI  |
 
-#### 🔹 Velocità Massima Movimento
+#### 🔹  Parametri operativi: Velocità Massima Movimento
 
-| Registro | Tipo | Descrizione               | Direzione    |
-| -------- | ---- | ------------------------- | ------------ |
-| 59       | int  | Velocità massima per asse | HMI → Master |
+| Registro                                                                  | Tipo | Descrizione                                                                 | Direzione    |
+| ------------------------------------------------------------------------- | ---- | --------------------------------------------------------------------------- | ------------ |
+| <p>85–>Asse 1<br>86–>Asse 2<br>87–>Asse 3<br>88–>Asse 4<br>89–>Asse 5</p> | int  | Velocità massima per asse da applicare all'interno della sessione corrente. | HMI → Master |
 
 ***
 
 ### 🔍 Informazioni all’Avvio
 
-Registri fondamentali per l’identificazione del sistema al momento dell’accensione. Il Master comunica informazioni strutturali e di sistema all’HMI.
-
-#### 🔹 Numero di Assi
-
-| Registro | Tipo   | Descrizione                | Direzione    |
-| -------- | ------ | -------------------------- | ------------ |
-| 3        | String | Numero di assi disponibili | Master → HMI |
+Registri fondamentali per l’identificazione del sistema al momento dell’accensione. Il Master comunica informazioni strutturali e di sistema all’HMI. Lo stesso registro è usato dall'HMI per chiedere il dato. Il Master lo invia unicamente come risposta alla richiesta.
 
 #### 🔹 Numero di Serie
 
-| Registro | Tipo   | Descrizione                    | Direzione    |
-| -------- | ------ | ------------------------------ | ------------ |
-| 1        | String | Codice seriale del dispositivo | Master → HMI |
+| Registro | Tipo   | Descrizione                    | Direzione      |
+| -------- | ------ | ------------------------------ | -------------- |
+| 1        | String | Codice seriale del dispositivo | Master <-> HMI |
+
+#### 🔹 Numero di Assi
+
+| Registro | Tipo   | Descrizione                | Direzione      |
+| -------- | ------ | -------------------------- | -------------- |
+| 2        | String | Numero di assi disponibili | Master <-> HMI |
 
 #### 🔹 Versione Software
 
-| Registro | Tipo   | Descrizione                  | Direzione    |
-| -------- | ------ | ---------------------------- | ------------ |
-| 8        | String | Versione software del Master | Master → HMI |
+| Registro | Tipo   | Descrizione                  | Direzione      |
+| -------- | ------ | ---------------------------- | -------------- |
+| 7        | String | Versione software del Master | Master <-> HMI |
 
 ***
 
-### 🛠️ Settaggi all’Avvio
+### Informazioni durante il funzionamento
 
 Contiene registri relativi ai parametri statici per ogni asse, come posizioni min/max e configurazioni dei sensori.
 
-#### 🔹 Posizione Min/Max
-
-| Registro | Tipo | Descrizione                           | Direzione    |
-| -------- | ---- | ------------------------------------- | ------------ |
-| 100–110  | int  | Posizioni min e max ROM per ogni asse | Master → HMI |
+| Registro | Tipo | Descrizione                          | Direzione    |
+| -------- | ---- | ------------------------------------ | ------------ |
+| 100      | int  | Percentuale di carica della batteria | Master → HMI |
 
 #### 🔹 Zero del Sensore
 
-| Registro | Tipo | Descrizione                             | Direzione    |
-| -------- | ---- | --------------------------------------- | ------------ |
-| 120–124  | int  | Valore di zero per sensore di posizione | Master → HMI |
+### 🛠️ Settaggi all’Avvio
 
-#### 🔹 Risoluzione
 
-| Registro | Tipo | Descrizione                  | Direzione    |
-| -------- | ---- | ---------------------------- | ------------ |
-| 130–134  | int  | Risoluzione encoder per asse | Master → HMI |
 
-#### 🔹 Corsa
+Contiene registri relativi ai parametri statici per ogni asse, come posizioni min/max e configurazioni dei sensori.
 
-| Registro | Tipo | Descrizione             | Direzione    |
-| -------- | ---- | ----------------------- | ------------ |
-| 140–144  | int  | Lunghezza corsa sensore | Master → HMI |
+#### 🔹 Posizione Min ASSE nel file di configurazione (pos\_min nel file cfg)
 
-#### 🔹 Direzione
+<table><thead><tr><th width="258.111083984375">Registro</th><th>Tipo</th><th>Descrizione</th><th>Direzione</th></tr></thead><tbody><tr><td>160–>Asse 1<br>161–>Asse 2<br>162–>Asse 3<br>163–>Asse 4<br>164–>Asse 5</td><td>int</td><td>Posizioni min per ogni asse</td><td>Master → HMI</td></tr></tbody></table>
 
-| Registro | Tipo    | Descrizione                            | Direzione    |
-| -------- | ------- | -------------------------------------- | ------------ |
-| 400–404  | boolean | Direzione movimento (normal/invertita) | Master → HMI |
+#### 🔹 Posizione Min ASSE nel file di configurazione (pos\_max nel file cfg)
+
+<table><thead><tr><th width="258.111083984375">Registro</th><th>Tipo</th><th>Descrizione</th><th>Direzione</th></tr></thead><tbody><tr><td>170–>Asse 1<br>171–>Asse 2<br>172–>Asse 3<br>173–>Asse 4<br>174–>Asse 5</td><td>int</td><td>Posizioni max per ogni asse</td><td>Master → HMI</td></tr></tbody></table>
+
+#### 🔹 Risoluzione del sensore di posizione (position\_sensor\_resolution nel file cfg)
+
+| Registro                                                                       | Tipo | Descrizione                                                                                                                                             | Direzione    |
+| ------------------------------------------------------------------------------ | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| <p>130–>Asse 1<br>131–>Asse 2<br>132–>Asse 3<br>133–>Asse 4<br>134–>Asse 5</p> | int  | Risoluzione trasduttore di posizione per asse. è abbinata alla corsa. Le 2 insieme determinano le costanti per la conversione da bit a gradi angolari.  | Master → HMI |
+
+#### 🔹 Zero del sensore di posizione (position\_sensor\_offset\_kinematics nel file cfg)
+
+| Registro                                                                       | Tipo | Descrizione                                                                                | Direzione    |
+| ------------------------------------------------------------------------------ | ---- | ------------------------------------------------------------------------------------------ | ------------ |
+| <p>140–>Asse 1<br>141–>Asse 2<br>142–>Asse 3<br>143–>Asse 4<br>144–>Asse 5</p> | int  | Valore di zero trasduttore di posizione per asse per la traformazione bit-> gradi angolari | Master → HMI |
+
+#### 🔹 Corsa del sensore di posizione (position\_sensor\_stroke nel file cfg)
+
+| Registro                                                                       | Tipo  | Descrizione                                                                                                                                                 | Direzione    |
+| ------------------------------------------------------------------------------ | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| <p>200–>Asse 1<br>201–>Asse 2<br>202–>Asse 3<br>203–>Asse 4<br>204–>Asse 5</p> | float | Corsa del trasduttore di posizione per asse. è abbinata alla risoluzione. Le 2 insieme determinano le costanti per la conversione da bit a gradi angolari.  | Master → HMI |
+
+#### 🔹 Direzione del sensore di posizione (position\_sensor\_dir\_inverted\_kinematics nel file cfg)
+
+| Registro                                                                       | Tipo    | Descrizione                                                                             | Direzione    |
+| ------------------------------------------------------------------------------ | ------- | --------------------------------------------------------------------------------------- | ------------ |
+| <p>400–>Asse 1<br>401–>Asse 2<br>402–>Asse 3<br>403–>Asse 4<br>404–>Asse 5</p> | boolean | Direzione movimento (normal/invertita). Si usa nella traformazione bit-> gradi angolari | Master → HMI |
 
 ***
 
@@ -123,43 +137,24 @@ Contiene registri relativi ai parametri statici per ogni asse, come posizioni mi
 
 Parametri configurabili dall’utente tramite HMI.
 
-#### 🔹 Limite Velocità Utente
+#### 🔹 Range of motion limits(ROM): posizione Min/Max e enable
 
-| Registro | Tipo | Descrizione                     | Direzione    |
-| -------- | ---- | ------------------------------- | ------------ |
-| 150      | int  | Velocità max definita da utente | HMI → Master |
+<table><thead><tr><th width="258.111083984375">Registro</th><th>Tipo</th><th>Descrizione</th><th>Direzione</th></tr></thead><tbody><tr><td><p>101–> ROM min Asse 1</p><p>102–> ROM max Asse 1<br>103–> ROM min Asse 2</p><p>104–> ROM max Asse 2<br>105–> ROM min Asse 3</p><p>106–> ROM max Asse 2<br>107–> ROM min Asse 4</p><p>108–> ROM max Asse 4<br>109–> ROM min Asse 5</p><p>110–> ROM max Asse 5</p></td><td>int</td><td>Posizioni min e max ROM per ogni asse</td><td>HMI → Master</td></tr><tr><td>111-> ROM enable</td><td>int</td><td>0 – disable ROM limits; 1 – enable ROM limits</td><td>HMI → Master</td></tr></tbody></table>
 
-#### 🔹 Velocità Avanzata
+#### 🔹 Limite Velocità Avanzata&#x20;
 
-| Registro | Tipo | Descrizione              | Direzione    |
-| -------- | ---- | ------------------------ | ------------ |
-| 151      | int  | Limite velocità avanzato | HMI → Master |
-
-#### 🔹 Limiti di Posizione (ROM)
-
-## 🧭 Comandi Base (String)
-
-I registri in questo gruppo (ID tra 1 e 9) contengono comandi o informazioni generali, inviati come stringhe. Sono utilizzati per la comunicazione iniziale, versioni software o scambi simbolici tra HMI e Master.
-
-| ID | Descrizione                                    | Tipo   | Asse | Direzione  |
-| -- | ---------------------------------------------- | ------ | ---- | ---------- |
-| 1  | Serial Number (ask and response with 1)        | String |      | HMI/Master |
-| 2  | 0 (ask for n. axes)                            | String |      | HMI        |
-| 3  | Number of Axis                                 | String |      | Master     |
-| 4  | Direct transaction of data (front-back-Master) | String |      | HMI        |
-| 5  | 0 - left; 1 - right (BTN true = click)         | String |      | HMI        |
+| Registro                                                                  | Tipo | Descrizione                                                                                          | Direzione    |
+| ------------------------------------------------------------------------- | ---- | ---------------------------------------------------------------------------------------------------- | ------------ |
+| <p>60–>Asse 1<br>61–>Asse 2<br>62–>Asse 3<br>63–>Asse 4<br>64–>Asse 5</p> | int  | Percentuale di velocità massima per asse da applicare sempre. Accessibile solo dall'utente avanzato. | HMI → Master |
 
 ***
 
-## 🗂️ Gruppi di Registri
+#### 🔹 Limite Velocità Utente
 
-Questa tabella riassume i principali gruppi di registri, ognuno caratterizzato da un intervallo di ID, un tipo di dato, e una funzione coerente all’interno del protocollo.
+| Registro                                                                  | Tipo | Descrizione                                                                                                           | Direzione    |
+| ------------------------------------------------------------------------- | ---- | --------------------------------------------------------------------------------------------------------------------- | ------------ |
+| <p>70–>Asse 1<br>71–>Asse 2<br>72–>Asse 3<br>73–>Asse 4<br>74–>Asse 5</p> | int  | Percentuale di velocità massima per asse da applicare sempre. Va in cascata  a quella avanzata. Accessibile da tutti. | HMI → Master |
 
-| Range ID | Nome Gruppo            | Tipo Dato | Descrizione                                    | Direzione    |
-| -------- | ---------------------- | --------- | ---------------------------------------------- | ------------ |
-| 1–9      | Comandi Base           | String    | Identificativi, versioni, comandi testuali     | HMI ↔ Master |
-| 10–49    | Parametri Operativi    | int       | Modalità operative, flag, opzioni              | HMI → Master |
-| 50–54    | Posizioni Target       | int       | Posizione desiderata per ogni asse             | HMI → Master |
-| 200–204  | Esercizi               | float     | Dati analogici per esercizi asse per asse      | HMI ↔ Master |
-| 400–404  | Sensori Booleani       | boolean   | Stato on/off di sensori digitali per ogni asse | Master → HMI |
-| 600–604  | Sensori ad Alta Risol. | long int  | Posizioni o misure con elevata precisione      | Master → HMI |
+#### 🔹 Regolazioni del movimento assistito (compliante)
+
+<table><thead><tr><th width="308.11114501953125">Registro</th><th width="72.6666259765625">Tipo</th><th width="229.6666259765625">Descrizione</th><th>Direzione</th></tr></thead><tbody><tr><td>90–>Lunghezza braccio<br></td><td>int</td><td>Dato in mm relativo alla regolazione della lunghezza del braccio.</td><td>HMI → Master</td></tr><tr><td>91–>Percentuale peso braccio<br></td><td>int</td><td>Percentuale di peso da usare nella funzione torque predictor.</td><td>HMI → Master</td></tr><tr><td>92–>Lunghezza avanbraccio<br></td><td>int</td><td>Dato in mm relativo alla regolazione della lunghezza del avanbraccio.</td><td>HMI → Master</td></tr><tr><td>93–>Percentuale peso avanbraccio</td><td>int</td><td>Percentuale di peso da usare nella funzione torque predictor.</td><td>HMI → Master</td></tr></tbody></table>
