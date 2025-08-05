@@ -2,7 +2,7 @@
 
 
 
-<figure><img src="../../../.gitbook/assets/spi-hmi-master-01.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/spi-hmi-master-01.png" alt=""><figcaption></figcaption></figure>
 
 ```mermaid
 ---
