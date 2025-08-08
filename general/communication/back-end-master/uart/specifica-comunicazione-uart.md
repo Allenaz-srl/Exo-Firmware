@@ -17,7 +17,7 @@ I registri sono classificati in base al tipo di dato trasportato, secondo i segu
 
 È anche possibile raggruppare i registri in base alla loro funzione logica come segue:
 
-<table><thead><tr><th width="211">Gruppo</th><th>From->To</th><th width="387">Descrizione</th></tr></thead><tbody><tr><td>Parametri operativi</td><td>HMI->Master</td><td>-10 Working mode<br>-11 Test cycle<br>-50-54 Posizioni angolari da raggiungere<br>-55-59 e 208-209 Posizioni cartesiane da raggiungere<br>-85-89 Velocità massima del singolo movimento</td></tr><tr><td>Informazioni all'avvio</td><td>Master->HMI</td><td>-1 Numero di serie<br>-2 Numero di assi<br>-7 Versione del software</td></tr><tr><td>Informazioni durante il funzionamento</td><td>Master->HMI</td><td>-100 Percentuale di carica della batteria</td></tr><tr><td>Settaggi all'avvio</td><td>Master->HMI</td><td><p>-160-164 Pos min per ogni asse<br>-170-174 Pos max per ogni asse<br>Per ogni sensore di posizione:<br>-130-134 Risoluzione</p><p>-140-144 Zero<br>-200-204 Corsa<br>-400-404 Direzione</p></td></tr><tr><td>Settaggi da interfaccia</td><td>HMI->Master</td><td><p>-60-64 Limite di velocità avanzato</p><p>-70-74 Limite di velocità utente</p><p>-90-93 Regolazioni movimento assistito<br>-101-111 Limiti di posizione (ROM)</p></td></tr></tbody></table>
+<table><thead><tr><th width="211">Gruppo</th><th>From->To</th><th width="387">Descrizione</th></tr></thead><tbody><tr><td>Parametri operativi</td><td>HMI->Master</td><td>-10 Working mode<br>-11 Test cycle<br>-50-54 Posizioni angolari da raggiungere<br>-80-84 Velocità massima del singolo movimento<br>-101-104 e 210-211 Posizioni cartesiane da raggiungere<br>-109 Attiva e disattiva limiti di posizione (ROM)</td></tr><tr><td>Informazioni all'avvio</td><td>Master->HMI</td><td>-1 Numero di serie<br>-2 Numero di assi<br>-7 Versione del software</td></tr><tr><td>Informazioni durante il funzionamento</td><td>Master->HMI</td><td>-100 Percentuale di carica della batteria</td></tr><tr><td>Settaggi all'avvio</td><td>Master->HMI</td><td><p>-160-164 Pos min per ogni asse<br>-170-174 Pos max per ogni asse<br>Per ogni sensore di posizione:<br>-130-134 Risoluzione</p><p>-140-144 Zero<br>-200-204 Corsa<br>-400-404 Direzione</p></td></tr><tr><td>Settaggi da interfaccia</td><td>HMI->Master</td><td><p>-60-64 Limite di velocità avanzato</p><p>-70-74 Limite di velocità utente</p><p>-90-93 Regolazioni movimento assistito<br>-110-114 Pos min ROM per ogni asse<br>-120-124 Pos max ROM per ogni asse</p></td></tr></tbody></table>
 
 
 
@@ -44,18 +44,18 @@ Il ciclo prevede uno start me
 
 
 
-| Registro                       | Tipo  | Descrizione                                                            | Direzione    |
-| ------------------------------ | ----- | ---------------------------------------------------------------------- | ------------ |
-| 55                             | int   | 0 - START MSG; 1 - Go without check; 2 - Go with check; 3 - check only | HMI → Master |
-| <p>56–>X<br>57–>Y<br>58–>Z</p> | int   | Posizione cartesiana target (XYZ)                                      | HMI → Master |
-| <p>208–>G3<br>209->G5</p>      | float |                                                                        |              |
-| 59                             | int   | 0 - no error; 1 - pos not reachable                                    | Master→ HMI  |
+| Registro                          | Tipo  | Descrizione                                                            | Direzione    |
+| --------------------------------- | ----- | ---------------------------------------------------------------------- | ------------ |
+| 101                               | int   | 0 - START MSG; 1 - Go without check; 2 - Go with check; 3 - check only | HMI → Master |
+| <p>102–>X<br>103–>Y<br>104–>Z</p> | int   | Posizione cartesiana target (XYZ)                                      | HMI → Master |
+| <p>210–>G3<br>211->G5</p>         | float |                                                                        |              |
+| 101                               | int   | 0 - no error; 1 - pos not reachable                                    | Master→ HMI  |
 
 #### 🔹  Parametri operativi: Velocità Massima Movimento
 
 | Registro                                                                  | Tipo | Descrizione                                                                 | Direzione    |
 | ------------------------------------------------------------------------- | ---- | --------------------------------------------------------------------------- | ------------ |
-| <p>85–>Asse 1<br>86–>Asse 2<br>87–>Asse 3<br>88–>Asse 4<br>89–>Asse 5</p> | int  | Velocità massima per asse da applicare all'interno della sessione corrente. | HMI → Master |
+| <p>80–>Asse 1<br>81–>Asse 2<br>82–>Asse 3<br>83–>Asse 4<br>84–>Asse 5</p> | int  | Velocità massima per asse da applicare all'interno della sessione corrente. | HMI → Master |
 
 ***
 
@@ -139,7 +139,7 @@ Parametri configurabili dall’utente tramite HMI.
 
 #### 🔹 Range of motion limits(ROM): posizione Min/Max e enable
 
-<table><thead><tr><th width="258.111083984375">Registro</th><th>Tipo</th><th>Descrizione</th><th>Direzione</th></tr></thead><tbody><tr><td><p>101–> ROM min Asse 1</p><p>102–> ROM max Asse 1<br>103–> ROM min Asse 2</p><p>104–> ROM max Asse 2<br>105–> ROM min Asse 3</p><p>106–> ROM max Asse 2<br>107–> ROM min Asse 4</p><p>108–> ROM max Asse 4<br>109–> ROM min Asse 5</p><p>110–> ROM max Asse 5</p></td><td>int</td><td>Posizioni min e max ROM per ogni asse</td><td>HMI → Master</td></tr><tr><td>111-> ROM enable</td><td>int</td><td>0 – disable ROM limits; 1 – enable ROM limits</td><td>HMI → Master</td></tr></tbody></table>
+<table><thead><tr><th width="258.111083984375">Registro</th><th>Tipo</th><th>Descrizione</th><th>Direzione</th></tr></thead><tbody><tr><td>109-> ROM enable</td><td>int</td><td>0 – disable ROM limits; 1 – enable ROM limits</td><td>HMI → Master</td></tr><tr><td>110–> ROM min Asse 1<br>111–> ROM min Asse 2<br>112–> ROM min Asse 3<br>113–> ROM min Asse 4<br>114–> ROM min Asse 5</td><td>int</td><td>Posizioni min e max ROM per ogni asse</td><td>HMI → Master</td></tr><tr><td><p></p><p>120–> ROM max Asse 1</p><p>121–> ROM max Asse 2</p><p>122–> ROM max Asse 2</p><p>123–> ROM max Asse 4</p><p>124–> ROM max Asse 5</p></td><td>int</td><td>Posizioni min e max ROM per ogni asse</td><td>HMI → Master</td></tr></tbody></table>
 
 #### 🔹 Limite Velocità Avanzata&#x20;
 
