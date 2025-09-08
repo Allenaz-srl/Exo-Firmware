@@ -17,7 +17,7 @@ I registri sono classificati in base al tipo di dato trasportato, secondo i segu
 
 È anche possibile raggruppare i registri in base alla loro funzione logica come segue:
 
-<table><thead><tr><th width="211">Gruppo</th><th>From->To</th><th width="387">Descrizione</th></tr></thead><tbody><tr><td>Parametri operativi</td><td>HMI->Master</td><td>-10 Working mode<br>-11 Test cycle<br>-50-54 Posizioni angolari da raggiungere<br>-80-84 Velocità massima del singolo movimento<br>-101-104 e 210-211 Posizioni cartesiane da raggiungere<br>-109 Attiva e disattiva limiti di posizione (ROM)</td></tr><tr><td>Informazioni all'avvio</td><td>Master->HMI</td><td>-1 Numero di serie<br>-2 Numero di assi<br>-7 Versione del software</td></tr><tr><td>Informazioni durante il funzionamento</td><td>Master->HMI</td><td>-100 Percentuale di carica della batteria</td></tr><tr><td>Settaggi all'avvio</td><td>Master->HMI</td><td><p>-160-164 Pos min per ogni asse<br>-170-174 Pos max per ogni asse<br>Per ogni sensore di posizione:<br>-130-134 Risoluzione</p><p>-140-144 Zero<br>-200-204 Corsa<br>-400-404 Direzione</p></td></tr><tr><td>Settaggi da interfaccia</td><td>HMI->Master</td><td><p>-60-64 Limite di velocità avanzato</p><p>-70-74 Limite di velocità utente</p><p>-90-93 Regolazioni movimento assistito<br>-110-114 Pos min ROM per ogni asse<br>-120-124 Pos max ROM per ogni asse</p></td></tr></tbody></table>
+<table><thead><tr><th width="211">Gruppo</th><th>From->To</th><th width="387">Descrizione</th></tr></thead><tbody><tr><td>Parametri operativi</td><td>HMI->Master</td><td>-10 Working mode<br>-11 Test cycle<br>-50-54 Posizioni angolari da raggiungere<br>-80-84 Velocità massima del singolo movimento<br>-101-104 e 210-211 Posizioni cartesiane da raggiungere<br>-109 Attiva e disattiva limiti di posizione (ROM)</td></tr><tr><td>Informazioni all'avvio</td><td>Master->HMI</td><td>-1 Numero di serie<br>-2 Numero di assi<br>-7 Versione del software</td></tr><tr><td>Informazioni durante il funzionamento</td><td>Master->HMI</td><td>-100 Percentuale di carica della batteria</td></tr><tr><td>Settaggi all'avvio</td><td>Master->HMI</td><td><p>-160-164 Pos min per ogni asse<br>-170-174 Pos max per ogni asse<br>-220-224 Fattore di conversione della velocità degli assi da microsteps/sec a gradi/sec <br>Per ogni sensore di posizione:<br>-130-134 Risoluzione</p><p>-140-144 Zero<br>-200-204 Corsa<br>-400-404 Direzione<br></p></td></tr><tr><td>Settaggi da interfaccia</td><td>HMI->Master</td><td><p>-60-64 Limite di velocità avanzato</p><p>-70-74 Limite di velocità utente</p><p>-90-93 Regolazioni movimento assistito<br>-110-114 Pos min ROM per ogni asse<br>-120-124 Pos max ROM per ogni asse</p></td></tr></tbody></table>
 
 
 
@@ -92,8 +92,6 @@ Contiene registri relativi ai parametri statici per ogni asse, come posizioni mi
 | -------- | ---- | ------------------------------------ | ------------ |
 | 100      | int  | Percentuale di carica della batteria | Master → HMI |
 
-#### 🔹 Zero del Sensore
-
 ### 🛠️ Settaggi all’Avvio
 
 
@@ -106,7 +104,11 @@ Contiene registri relativi ai parametri statici per ogni asse, come posizioni mi
 
 #### 🔹 Posizione Min ASSE nel file di configurazione (pos\_max nel file cfg)
 
-<table><thead><tr><th width="258.111083984375">Registro</th><th>Tipo</th><th>Descrizione</th><th>Direzione</th></tr></thead><tbody><tr><td>170–>Asse 1<br>171–>Asse 2<br>172–>Asse 3<br>173–>Asse 4<br>174–>Asse 5</td><td>int</td><td>Posizioni max per ogni asse</td><td>Master → HMI</td></tr></tbody></table>
+<table><thead><tr><th width="187.111083984375">Registro</th><th width="81">Tipo</th><th width="350">Descrizione</th><th>Direzione</th></tr></thead><tbody><tr><td>170–>Asse 1<br>171–>Asse 2<br>172–>Asse 3<br>173–>Asse 4<br>174–>Asse 5</td><td>int</td><td>Posizioni max per ogni asse</td><td>Master → HMI</td></tr></tbody></table>
+
+#### 🔹 Fattore di conversione della velocità
+
+<table><thead><tr><th width="188">Registro</th><th width="84">Tipo</th><th width="338">Descrizione</th><th>Direzione</th></tr></thead><tbody><tr><td>220–>Asse 1<br>221–>Asse 2<br>222–>Asse 3<br>223–>Asse 4<br>224–>Asse 5</td><td>float</td><td>Fattore di conversione della velocità degli assi da microsteps/sec a gradi/seci. </td><td>Master → HMI</td></tr></tbody></table>
 
 #### 🔹 Risoluzione del sensore di posizione (position\_sensor\_resolution nel file cfg)
 
