@@ -40,22 +40,23 @@ I registri sono classificati in base al tipo di dato trasportato, secondo i segu
 #### 🔹 Parametri operativi: Posizioni Cartesiane da raggiungere
 
 Con questi registri vengono passati i valori delle posizioni cartesiane dell'estremità dell'esoschetro da raggiungere. La conversione dello spazio degli assi viene fatta internamente. che ogni asse deve raggiungere nel working mode TARGET POSITION. Può essere passata anche solo una posizione. Il dato è in bit e non in deg.\
-Il ciclo prevede uno start me
 
 
+```mermaid
+sequenceDiagram
+    Back End->>Master: 101 - 0
+    Back End-->>Master: 102 - value to reach (eventually)
+Back End-->>Master: 103 - value to reach (eventually)
+Back End-->>Master: 104 - value to reach (eventually)
+Back End->>Master: 101 - 1 or 2 or 3
+    Master-)Back End: 101 - 0 or 1
+```
 
-| Registro                          | Tipo  | Descrizione                                                            | Direzione    |
-| --------------------------------- | ----- | ---------------------------------------------------------------------- | ------------ |
-| 101                               | int   | 0 - START MSG; 1 - Go without check; 2 - Go with check; 3 - check only | HMI → Master |
-| <p>102–>X<br>103–>Y<br>104–>Z</p> | int   | Posizione cartesiana target (XYZ)                                      | HMI → Master |
-| <p>210–>G3<br>211->G5</p>         | float |                                                                        |              |
-| 101                               | int   | 0 - no error; 1 - pos not reachable                                    | Master→ HMI  |
+<table><thead><tr><th width="125.45452880859375">Registro</th><th width="87.90911865234375">Tipo</th><th>Descrizione</th><th>Direzione</th></tr></thead><tbody><tr><td>101</td><td>int</td><td><p>0 - START MSG;<br>1 - Go without check;<br>2 - Go with check;</p><p>3 - check only</p></td><td>HMI → Master</td></tr><tr><td>102–>X<br>103–>Y<br>104–>Z</td><td>int</td><td>Posizione cartesiana target (XYZ)</td><td>HMI → Master</td></tr><tr><td>210–>G3<br>211->G5</td><td>float</td><td></td><td></td></tr><tr><td>101</td><td>int</td><td>0 - no error; 1 - pos not reachable</td><td>Master→ HMI </td></tr></tbody></table>
 
 #### 🔹  Parametri operativi: Velocità Massima Movimento
 
-| Registro                                                                  | Tipo | Descrizione                                                                 | Direzione    |
-| ------------------------------------------------------------------------- | ---- | --------------------------------------------------------------------------- | ------------ |
-| <p>80–>Asse 1<br>81–>Asse 2<br>82–>Asse 3<br>83–>Asse 4<br>84–>Asse 5</p> | int  | Velocità massima per asse da applicare all'interno della sessione corrente. | HMI → Master |
+<table><thead><tr><th width="124.27276611328125">Registro</th><th width="88.81817626953125">Tipo</th><th>Descrizione</th><th>Direzione</th></tr></thead><tbody><tr><td>80–>Asse 1<br>81–>Asse 2<br>82–>Asse 3<br>83–>Asse 4<br>84–>Asse 5</td><td>int</td><td>Velocità massima per asse da applicare all'interno della sessione corrente.</td><td>HMI → Master</td></tr></tbody></table>
 
 ***
 
