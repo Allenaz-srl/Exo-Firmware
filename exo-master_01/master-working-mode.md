@@ -1,0 +1,3 @@
+# Master working mode
+
+<table><thead><tr><th width="80">ID</th><th width="476">Nome</th><th>Descrizione</th></tr></thead><tbody><tr><td>0</td><td>MASTER_OFF_WORKING_MODE</td><td></td></tr><tr><td>1</td><td>STAND_STILL_WORKING_MODE</td><td></td></tr><tr><td>2</td><td>TEST_WORKING_MODE</td><td></td></tr><tr><td>3</td><td>JOG_WORKING_MODE</td><td></td></tr><tr><td>4</td><td>POSITION_TARGET_WORKING_MODE</td><td></td></tr><tr><td>5</td><td>POSITION_TARGET_WAIT_FOR_START_WORKING_MODE</td><td></td></tr><tr><td>6</td><td>STOP_WORKING_MODE</td><td></td></tr><tr><td>7</td><td>RESET_ERROR</td><td></td></tr><tr><td>8</td><td>EXTERNAL_DEVELOPER_AUTO_WORKING_MODE</td><td></td></tr><tr><td>9</td><td>EXTERNAL_DEVELOPER_ERROR_WORKING_MODE</td><td></td></tr></tbody></table>

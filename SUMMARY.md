@@ -22,6 +22,7 @@
 
 ## Exo-driver\_01
 
+* [Driver Working Mode](exo-driver_01/driver-working-mode.md)
 * [Diagrams](exo-driver_01/diagrams/README.md)
   * [Main](exo-driver_01/diagrams/main.md)
   * [Driver-loop](exo-driver_01/diagrams/driver-loop.md)
@@ -33,6 +34,7 @@
 
 ## Exo-master\_01
 
+* [Master working mode](exo-master_01/master-working-mode.md)
 * [Master\_01](exo-master_01/master_01.md)
 * [Emergency\_stop\_monitor](exo-master_01/emergency_stop_monitor/README.md)
   * [Validation and testing](exo-master_01/emergency_stop_monitor/validation-and-testing.md)
