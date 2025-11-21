@@ -17,19 +17,23 @@ I registri sono classificati in base al tipo di dato trasportato, secondo i segu
 
 È anche possibile raggruppare i registri in base alla loro funzione logica come segue:
 
-<table><thead><tr><th width="211">Gruppo</th><th>From->To</th><th width="387">Descrizione</th></tr></thead><tbody><tr><td>Parametri operativi</td><td>HMI->Master</td><td><p>-10 Working mode<br>-11 Test cycle<br>-50-54 Posizioni angolari da raggiungere<br>-80-84 Velocità massima del singolo movimento<br>-101-104 e 210-211 Posizioni cartesiane da raggiungere</p><p>-105-107 Velocità target cartesiane da raggiungere<br>-109 Attiva e disattiva limiti di posizione (ROM)</p></td></tr><tr><td>Informazioni all'avvio</td><td>Master->HMI</td><td>-1 Numero di serie<br>-2 Numero di assi<br>-7 Versione del software</td></tr><tr><td>Informazioni durante il funzionamento</td><td>Master->HMI</td><td>-100 Percentuale di carica della batteria</td></tr><tr><td>Settaggi all'avvio</td><td>Master->HMI</td><td><p>-160-164 Pos min per ogni asse<br>-170-174 Pos max per ogni asse<br>-220-224 Fattore di conversione della velocità degli assi da microsteps/sec a gradi/sec <br>Per ogni sensore di posizione:<br>-130-134 Risoluzione</p><p>-140-144 Zero<br>-200-204 Corsa<br>-400-404 Direzione<br></p></td></tr><tr><td>Settaggi da interfaccia</td><td>HMI->Master</td><td><p>-60-64 Limite di velocità avanzato</p><p>-70-74 Limite di velocità utente</p><p>-90-93 Regolazioni movimento assistito<br>-110-114 Pos min ROM per ogni asse<br>-120-124 Pos max ROM per ogni asse</p></td></tr></tbody></table>
+<table><thead><tr><th width="211">Gruppo</th><th>From->To</th><th width="387">Descrizione</th></tr></thead><tbody><tr><td>Parametri operativi</td><td>HMI->Master</td><td><p>-10 Master working mode<br>-11 Test cycle</p><p>-12-16 Driver working mode(for External Developer only)<br>-50-54 Posizioni angolari da raggiungere<br>-80-84 Velocità massima del singolo movimento<br>-101-104 e 210-211 Posizioni cartesiane da raggiungere</p><p>-105-107 Velocità target cartesiane da raggiungere<br>-109 Attiva e disattiva limiti di posizione (ROM)</p></td></tr><tr><td>Informazioni all'avvio</td><td>Master->HMI</td><td>-1 Numero di serie<br>-2 Numero di assi<br>-7 Versione del software</td></tr><tr><td>Informazioni durante il funzionamento</td><td>Master->HMI</td><td>-100 Percentuale di carica della batteria</td></tr><tr><td>Settaggi all'avvio</td><td>Master->HMI</td><td><p>-160-164 Pos min per ogni asse<br>-170-174 Pos max per ogni asse<br>-220-224 Fattore di conversione della velocità degli assi da microsteps/sec a gradi/sec <br>Per ogni sensore di posizione:<br>-130-134 Risoluzione</p><p>-140-144 Zero<br>-200-204 Corsa<br>-400-404 Direzione<br></p></td></tr><tr><td>Settaggi da interfaccia</td><td>HMI->Master</td><td><p>-60-64 Limite di velocità avanzato</p><p>-70-74 Limite di velocità utente</p><p>-90-93 Regolazioni movimento assistito<br>-110-114 Pos min ROM per ogni asse<br>-120-124 Pos max ROM per ogni asse</p></td></tr></tbody></table>
 
 
 
 ***
 
-#### 🔹 Parametri operativi: Working Mode
+#### 🔹 Parametri operativi: Master working Mode
 
-<table><thead><tr><th width="88">Registro</th><th width="521">Descrizione</th><th>Direzione</th><th data-hidden>Tipo</th></tr></thead><tbody><tr><td>10</td><td>Modalità di lavoro da attivare</td><td>HMI → Master</td><td>int</td></tr></tbody></table>
+<table><thead><tr><th width="88">Registro</th><th width="521">Descrizione</th><th>Direzione</th><th data-hidden>Tipo</th></tr></thead><tbody><tr><td>10</td><td>Modalità di lavoro del Master da attivare</td><td>HMI → Master</td><td>int</td></tr></tbody></table>
 
 #### 🔹 Parametri operativi: Test Cycle
 
 <table><thead><tr><th width="88">Registro</th><th width="521">Descrizione</th><th>Direzione</th><th data-hidden>Tipo</th></tr></thead><tbody><tr><td>11</td><td>Numero del ciclo di test</td><td>HMI → Master</td><td>int</td></tr></tbody></table>
+
+#### 🔹 Parametri operativi: Driver working mode
+
+<table><thead><tr><th width="115">Registro</th><th width="499">Descrizione</th><th>Direzione</th><th data-hidden>Tipo</th></tr></thead><tbody><tr><td>12–>Asse 1<br>13–>Asse 2<br>14–>Asse 3<br>15–>Asse 4<br>16–>Asse 5</td><td>Modalità di lavoro del driver da attivare<br>Ad oggi attivati solo per EXTERNAL DEVELOPER</td><td>HMI → Master</td><td>int</td></tr></tbody></table>
 
 #### 🔹 Parametri operativi: Posizioni Angolari da raggiungere
 
@@ -39,8 +43,7 @@ I registri sono classificati in base al tipo di dato trasportato, secondo i segu
 
 #### 🔹 Parametri operativi: Posizioni Cartesiane da raggiungere
 
-Con questi registri vengono passati i valori delle posizioni cartesiane dell'estremità dell'esoschetro da raggiungere. La conversione dello spazio degli assi viene fatta internamente. che ogni asse deve raggiungere nel working mode TARGET POSITION. Può essere passata anche solo una posizione. Il dato è in bit e non in deg.\
-
+Con questi registri vengono passati i valori delle posizioni cartesiane dell'estremità dell'esoschetro da raggiungere. La conversione dello spazio degli assi viene fatta internamente. che ogni asse deve raggiungere nel working mode TARGET POSITION. Può essere passata anche solo una posizione. Il dato è in bit e non in deg.<br>
 
 ```mermaid
 sequenceDiagram
@@ -56,8 +59,7 @@ Back End->>Master: 101 - 1 or 2 or 3
 
 #### 🔹  Parametri operativi: Velocità Cartesiane target da raggiungere
 
-Con questi registri vengono passati i valori per il controllo in velocità nel piano cartesiano dell'estremità dell'esoschetro. La conversione dello spazio degli assi viene fatta internamente. Può essere passata anche solo una velocità. Il dato è in percentuale da -100% a 100%.\
-
+Con questi registri vengono passati i valori per il controllo in velocità nel piano cartesiano dell'estremità dell'esoschetro. La conversione dello spazio degli assi viene fatta internamente. Può essere passata anche solo una velocità. Il dato è in percentuale da -100% a 100%.<br>
 
 <table><thead><tr><th width="125.45452880859375">Registro</th><th width="87.90911865234375">Tipo</th><th>Descrizione</th><th>Direzione</th></tr></thead><tbody><tr><td>105–>vel X<br>106–>vel Y<br>107–>vel Z</td><td>int</td><td>Velocità cartesiana target (XYZ)</td><td>HMI → Master</td></tr></tbody></table>
 
