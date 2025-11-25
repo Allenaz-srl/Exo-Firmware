@@ -20,6 +20,13 @@
       * [Specifica comunicazione UART](general/communication/back-end-master/uart/specifica-comunicazione-uart.md)
   * [Back End - Drive](general/communication/back-end-drive.md)
 
+## SPI\_COMM.cpp
+
+* [Shared Memory](spi_comm.cpp/shared-memory.md)
+* [Semafori](spi_comm.cpp/semafori.md)
+* Group 1
+  * [Page 1](spi_comm.cpp/group-1/page-1.md)
+
 ## Exo-driver\_01
 
 * [Driver Working Mode](exo-driver_01/driver-working-mode.md)
