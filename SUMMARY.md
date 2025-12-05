@@ -24,7 +24,7 @@
 
 * [Shared Memory](spi_comm.cpp/shared-memory.md)
 * [Semafori](spi_comm.cpp/semafori.md)
-* Group 1
+* [Group 1](spi_comm.cpp/group-1/README.md)
   * [Page 1](spi_comm.cpp/group-1/page-1.md)
 
 ## Exo-driver\_01
