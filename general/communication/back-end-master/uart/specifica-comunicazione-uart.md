@@ -2,7 +2,13 @@
 
 ## 📘 Introduzione
 
-La comunicazione avviene tramite una serie di registri identificati da ID numerici. Ogni registro rappresenta un parametro definito, un formato e una direzione di comunicazione univoca.
+La comunicazione avviene tramite una serie di registri identificati da ID numerici. Ogni registro rappresenta un parametro definito, un formato e una direzione di comunicazione univoca.\
+\
+Tutti i messaggi seriali hanno il seguente formato:<br>
+
+\#address:value\*\
+\
+altri separatori o terminali posso essere AGGIUNTI (senza mai rimuovere quelli sopra indicati) se il tipo di dato lo richiede(per esempio terminale aggiuntivo nelle stringhe)
 
 I registri sono classificati in base al tipo di dato trasportato, secondo i seguenti intervalli:
 
@@ -25,13 +31,15 @@ I registri sono classificati in base al tipo di dato trasportato, secondo i segu
 
 #### 🔹 Parametri operativi: Comando e URL per aggiornamento firmware OTA
 
-| Registro | Tipo   | Descrizione                                                      | Direzione    |
-| -------- | ------ | ---------------------------------------------------------------- | ------------ |
-| 6        | String | id e URL per download .bin per aggiornamento software OverTheAir | HMI ->Master |
+| Registro | Tipo   | Descrizione                                                                  | Direzione    |
+| -------- | ------ | ---------------------------------------------------------------------------- | ------------ |
+| 6        | String | id(int 2 byte) e URL per download .bin per aggiornamento software OverTheAir | HMI ->Master |
 
-La stringa deve essere per esempio 0;`http://10.42.0.1:8000/firmware/arduino_01/firmware.bin`&#x20;
+La stringa deve essere per esempio 0;`http://10.42.0.1:8000/firmware/arduino_01/firmware.bin*`&#x20;
 
-L'indice è 0 per il master, 1 per driver 1 , 2 per driver 2, etc...
+L'indice è 0 per il master, 1 per driver 1 , 2 per driver 2, etc...\
+\
+La stringa dell'url termina con un \* aggiuntivo.
 
 #### 🔹 Parametri operativi: SSID e password WI-FI per agg. firmware OTA&#x20;
 
@@ -39,6 +47,9 @@ L'indice è 0 per il master, 1 per driver 1 , 2 per driver 2, etc...
 | -------- | ------ | ------------- | ------------ |
 | 8        | String | SSID WIFI     | HMI ->Master |
 | 9        | String | Password WIFI | HMI ->Master |
+
+Alle stringhe viene aggiunto alla fine \* per indicare che la fine della stringa. Quindi il messaggio sarà per esempio:\
+\#0x0008:nome\_del\_wifi\*\*
 
 #### 🔹 Parametri operativi: Master working Mode
 
