@@ -51,6 +51,8 @@ La stringa dell'url termina con un \* aggiuntivo.
 Alle stringhe viene aggiunto alla fine \* per indicare che la fine della stringa. Quindi il messaggio sarà per esempio:\
 \#0x0008:nome\_del\_wifi\*\*
 
+\#0x0009:password\*\*
+
 #### 🔹 Parametri operativi: Master working Mode
 
 <table><thead><tr><th width="88">Registro</th><th width="521">Descrizione</th><th>Direzione</th><th data-hidden>Tipo</th></tr></thead><tbody><tr><td>10</td><td>Modalità di lavoro del Master da attivare</td><td>HMI → Master</td><td>int</td></tr></tbody></table>
