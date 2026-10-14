@@ -40,6 +40,7 @@
 ***
 
 * [Config, startup & reset](config-startup-and-reset.md)
+* [Page 2](page-2.md)
 
 ## Exo-master\_01
 
