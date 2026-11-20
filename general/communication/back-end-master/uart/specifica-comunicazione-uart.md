@@ -12,15 +12,15 @@ altri separatori o terminali posso essere AGGIUNTI (senza mai rimuovere quelli s
 
 I registri sono classificati in base al tipo di dato trasportato, secondo i seguenti intervalli:
 
-| Intervallo     | Tipo di dato      | Descrizione         |
-| -------------- | ----------------- | ------------------- |
-| 1 < ID < 9     | String            | stringhe            |
-| 10 < ID < 49   | uint\_8           | unsigned int 1 byte |
-| 50 < ID < 199  | int\_16           | intero 2 byte       |
-| 200 < ID < 399 | float             | float               |
-| 400 < ID < 499 | boolean           | bool                |
-| 500 < ID < 599 | long int (int32)  | long int (4 byte)   |
-| 600 < ID < 699 | int16+int16+float | 8 byte              |
+| Intervallo       | Tipo di dato      | Descrizione         |
+| ---------------- | ----------------- | ------------------- |
+| 1 <= ID <= 9     | String            | stringhe            |
+| 10 <= ID <= 49   | uint\_8           | unsigned int 1 byte |
+| 50 <= ID <= 199  | int\_16           | intero 2 byte       |
+| 200 <= ID <= 399 | float             | float               |
+| 400 <= ID <= 499 | boolean           | bool                |
+| 500 <= ID <= 599 | long int (int32)  | long int (4 byte)   |
+| 600 <= ID <= 699 | int16+int16+float | 8 byte              |
 
 È anche possibile raggruppare i registri in base alla loro funzione logica come segue:
 
