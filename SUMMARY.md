@@ -19,6 +19,7 @@
       * [BE->Master](general/communication/back-end-master/spi/be-greater-than-master.md)
     * [UART](general/communication/back-end-master/uart/README.md)
       * [Specifica comunicazione UART](general/communication/back-end-master/uart/specifica-comunicazione-uart.md)
+      * [CRC for UART](general/communication/back-end-master/uart/crc-for-uart.md)
     * [External softwares message structures](general/communication/back-end-master/external-softwares-message-structures.md)
   * [Back End - Drive](general/communication/back-end-drive.md)
 

@@ -6,7 +6,7 @@ La comunicazione avviene tramite una serie di registri identificati da ID numeri
 \
 Tutti i messaggi seriali hanno il seguente formato:<br>
 
-\#address:value\*\
+\#address:value%CRC\*\
 \
 altri separatori o terminali posso essere AGGIUNTI (senza mai rimuovere quelli sopra indicati) se il tipo di dato lo richiede(per esempio terminale aggiuntivo nelle stringhe)
 
@@ -48,6 +48,7 @@ La stringa dell'url termina con un \* aggiuntivo.
 | -------- | ------ | ------------- | ------------ |
 | 8        | String | SSID WIFI     | HMI ->Master |
 | 9        | String | Password WIFI | HMI ->Master |
+|          |        |               |              |
 
 Alle stringhe viene aggiunto alla fine \* per indicare che la fine della stringa. Quindi il messaggio sarà per esempio:\
 \#0x0008:nome\_del\_wifi\*\*
